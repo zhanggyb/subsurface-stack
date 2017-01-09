@@ -179,6 +179,7 @@ enum {
 	RED,
 	GREEN,
 	BLUE,
+	YELLOW,
 	COUNT
 };
 
@@ -205,10 +206,14 @@ context_init(void)
 	if (!surf[BLUE])
 		die("failed to create root surface");
 
-	surf[RED] = surface_create(ctx, surf[BLUE], 200, 200, 25, 25,
+	surf[RED] = surface_create(ctx, surf[BLUE], 200, 200, -25, -25,
 				   0xffff0000);
-	surf[GREEN] = surface_create(ctx, surf[BLUE], 200, 200, 50, 50,
+	surf[GREEN] = surface_create(ctx, surf[BLUE], 200, 200, 25, 25,
 				     0xff00ff00);
+
+	// A subsurface in subsurface:
+	surf[YELLOW] = surface_create(ctx, surf[GREEN], 200, 200, 25, 25, 0xffffff00);
+	
 
 #if 0
 	wl_subsurface_place_below(surf[GREEN]->subsurface, surf[BLUE]->surface);
@@ -218,6 +223,9 @@ context_init(void)
 	wl_subsurface_place_below(surf[GREEN]->subsurface, surf[BLUE]->surface);
 #endif
 
+	wl_surface_commit(surf[YELLOW]->surface);
+	wl_surface_commit(surf[GREEN]->surface);
+	wl_surface_commit(surf[RED]->surface);
 	wl_surface_commit(surf[BLUE]->surface);
 
 	return ctx;
