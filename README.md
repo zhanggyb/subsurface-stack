@@ -1,6 +1,7 @@
 # subsurface-stack
 
 Sample code to demonstrate the issue to stack wayland sub surfaces.
+It's borrowed from [https://lists.freedesktop.org/archives/wayland-devel/2015-June/022707.html](https://lists.freedesktop.org/archives/wayland-devel/2015-June/022707.html).
 
 Test environment:
 
